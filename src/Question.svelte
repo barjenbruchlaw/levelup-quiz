@@ -1,11 +1,55 @@
 <script>
   export let question
+  export let nextQuestion
+  let isCorrect
+  let isAnswered = false
 
-  let answers = question.incorrect_answers
+  let answers = question.incorrect_answers.map((answer) => {
+    return {
+      answer,
+      correct: false,
+    }
+  })
+
+  let allAnswers = [
+    ...answers,
+    {
+      answer: question.correct_answer,
+      correct: true,
+    },
+  ]
+
+  function shuffle(array) {
+    array.sort(() => Math.random() - 0.5)
+  }
+
+  shuffle(allAnswers)
+
+  function checkQuestion(correct) {
+    isAnswered = true
+    isCorrect = correct
+  }
 </script>
 
-<h3>{question.question}</h3>
+<h3>{@html question.question}</h3>
 
-{#each answers as answer}
-  <button>{answer}</button>
+{#if isAnswered}
+  <h5>
+    {#if isCorrect}
+      You got it right
+    {:else}
+      You goofed up
+    {/if}
+  </h5>
+{/if}
+
+{#each allAnswers as answer}
+  <button on:click={() => checkQuestion(answer.correct)}
+    >{@html answer.answer}</button
+  >
 {/each}
+{#if isAnswered}
+  <div>
+    <button on:click={nextQuestion}>Next Question</button>
+  </div>
+{/if}
