@@ -29,19 +29,19 @@
   }
 
   //Reactive statement
-  $: if (score > 6) {
-    oneMoreCorrect = true
-  }
+  // $: if (score > 6) {
+  //   oneMoreCorrect = true
+  // }
 
   $: if (score > 7) {
     alert("You won!")
     resetQuiz()
   }
 
-  $: if (score < 8 && activeQuestion === 10) {
-    alert("Sorry, try again.")
-    resetQuiz()
-  }
+  // $: if (score < 8 && activeQuestion === 10) {
+  //   alert("Sorry, try again.")
+  //   resetQuiz()
+  // }
 
   $: questionNumber = activeQuestion + 1
 </script>
