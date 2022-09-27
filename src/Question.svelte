@@ -1,6 +1,7 @@
 <script>
   export let question
   export let nextQuestion
+  export let addToScore
   let isCorrect
   let isAnswered = false
 
@@ -26,8 +27,13 @@
   shuffle(allAnswers)
 
   function checkQuestion(correct) {
-    isAnswered = true
-    isCorrect = correct
+    if (!isAnswered) {
+      isAnswered = true
+      isCorrect = correct
+      if (correct) {
+        addToScore()
+      }
+    }
   }
 </script>
 
