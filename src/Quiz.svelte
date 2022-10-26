@@ -1,8 +1,8 @@
 <script>
-  import { fade, blur, fly, slide, scale } from 'svelte/transition'
-  import { onMount, beforeUpdate, afterUpdate, onDestroy } from 'svelte'
-  import Question from './Question.svelte'
-  import Modal from './Modal.svelte'
+  import { fade, blur, fly, slide, scale } from "svelte/transition"
+  import { onMount, beforeUpdate, afterUpdate, onDestroy } from "svelte"
+  import Question from "./Question.svelte"
+  import Modal from "./Modal.svelte"
   let quiz = getQuiz()
   let activeQuestion = 0
   let score = 0
@@ -10,20 +10,20 @@
   let isModalOpen = false
 
   onMount(() => {
-    console.log('I mounted')
+    console.log("I mounted")
   })
 
   beforeUpdate(() => {
-    console.log('Before update')
+    console.log("Before update")
   })
 
   afterUpdate(() => {
-    console.log('After update')
+    console.log("After update")
   })
 
   async function getQuiz() {
     const res = await fetch(
-      'https://opentdb.com/api.php?amount=10&category=24&type=multiple'
+      "https://opentdb.com/api.php?amount=10&category=24&type=multiple"
     )
     const quiz = await res.json()
     return quiz
@@ -50,7 +50,7 @@
   //   oneMoreCorrect = true
   // }
 
-  $: if (score > 7) {
+  $: if (score > 2) {
     isModalOpen = true
   }
 
@@ -84,7 +84,7 @@
 </div>
 
 {#if isModalOpen}
-  <Modal>
+  <Modal on:close={resetQuiz}>
     <h2>You won!</h2>
     <p>Congratulations</p>
     <button on:click={resetQuiz}>Start Over</button>
